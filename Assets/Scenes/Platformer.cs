@@ -5,9 +5,7 @@ using UnityEngine;
 public class Platformer : MonoBehaviour {
 
 	public float fallspeed = 1f;
-	public float dashspeed = 1f;
-	public float walkspeedFast = 3f;
-	public float walkspeedSlow = 1f;
+	public float walkspeed = 0.5f;
 
 	public float friction = 0.2f;
 
@@ -22,15 +20,15 @@ public class Platformer : MonoBehaviour {
 	void Update () {
 		Vector2 iv= GetIntendedVelocity();
 		Debug.Log(iv);
-		velocity += iv;
+		velocity += iv * Time.deltaTime;
 		velocity *= 1 - friction;
 		transform.position += new Vector3(velocity.x, velocity.y, 0);
 	}
 
 	Vector2 GetIntendedVelocity() {
-		return (Input.GetKeyDown("left") ? new Vector2(-dashspeed, 0) : new Vector2(0, 0)) +
-			(Input.GetKeyDown("right") ? new Vector2(dashspeed, 0) : new Vector2(0, 0)) +
-			(Input.GetKeyDown("up") ? new Vector2(0, dashspeed) : new Vector2(0, 0)) +
-			(Input.GetKeyDown("down") ? new Vector2(0, -dashspeed) : new Vector2(0, 0));
+		return (Input.GetKey("left") ? new Vector2(-walkspeed, 0) : new Vector2(0, 0)) +
+			(Input.GetKey("right") ? new Vector2(walkspeed, 0) : new Vector2(0, 0)) +
+			(Input.GetKey("up") ? new Vector2(0, walkspeed) : new Vector2(0, 0)) +
+			(Input.GetKey("down") ? new Vector2(0, -walkspeed) : new Vector2(0, 0));
 	}
 }
