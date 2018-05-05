@@ -828,6 +828,7 @@ MonoBehaviour:
   friction: 0.08
   standingGroundedSpeedThreshold: 0.0001
   jumpInitialVelocity: 10
+  flipThreshold: 0.4
   controller: {fileID: 1333594050}
 --- !u!54 &1333594053
 Rigidbody:
@@ -874,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun:
     shootTime: 0.02
-    reloadTime: 4.1
+    reloadTime: 1
     ammoCapacity: 10
     currentAmmo: 10
     travelSpeed: 18

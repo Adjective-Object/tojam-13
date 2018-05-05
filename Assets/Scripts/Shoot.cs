@@ -60,15 +60,15 @@ public class Shoot : MonoBehaviour {
 	void Start () {
         if (controller == null) controller = GetComponent<AbstractController>();
         if (movement == null) movement = GetComponent<Movement>();
+        mLastShootTime = -gun.shootTime;
+        mLastReloadTime = -gun.reloadTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        mLastShootTime = -gun.shootTime;
-        mLastReloadTime = -gun.reloadTime;
         float currentTime = Time.realtimeSinceStartup;
-        bool isShooting = currentTime - mLastShootTime < gun.shootTime;
-        bool isReloading = currentTime - mLastReloadTime < gun.reloadTime;
+        bool isShooting = mLastShootTime + gun.shootTime > currentTime;
+        bool isReloading =  mLastReloadTime + gun.reloadTime > currentTime;
         bool isBusy = isShooting || isReloading;
         if (controller.ShouldShoot() && !isBusy) {
             if (gun.currentAmmo > 0) {
@@ -78,7 +78,6 @@ public class Shoot : MonoBehaviour {
             }
         }
         if (controller.ShouldReload() && !isBusy) {
-            Debug.Log("Should Reload");
             Reload(currentTime);
         }
 	}
@@ -111,6 +110,7 @@ public class Shoot : MonoBehaviour {
     }
 
     void Reload(float currentTime) {
+        Debug.Log("reloading");
         mLastReloadTime = currentTime;
         gun.currentAmmo = gun.ammoCapacity;
     }
