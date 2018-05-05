@@ -16,7 +16,6 @@ public class HeldObject : MonoBehaviour {
 	void Update () {
 		if (controller.ShouldSetPointing()) {
 			float pointing = controller.GetIntendedPointingDegrees();
-			Debug.Log(pointing);
 			SetPointingDegrees(pointing);
 		}
 	}
