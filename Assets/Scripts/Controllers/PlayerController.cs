@@ -5,6 +5,8 @@ public class PlayerController : AbstractController {
 
 	public string xAxisPointing = "Horizontal";
 	public string yAxisPointing = "Vertical";
+
+    public string jumpButton = "Fire1";
 	public float pointingAxisThreshold = 0.01f;
 
 	public override Vector2 GetIntendedVelocity() {
@@ -19,4 +21,8 @@ public class PlayerController : AbstractController {
 	public override float GetIntendedPointingDegrees() {
  		return (Mathf.Atan2(Input.GetAxis(yAxisPointing), Input.GetAxis(xAxisPointing))) * Mathf.Rad2Deg;
 	}
+
+    public override bool ShouldJump() {
+        return Input.GetButtonDown(jumpButton);
+    }
 }

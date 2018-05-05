@@ -5,36 +5,76 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
-	public float fallspeed = 1f;
 	public float walkspeed = 0.5f;
+	public float fallspeed = 0.1f;
+	public float maxFallSpeed = 0.3f;
 	public float friction = 0.2f;
-	public float standThreshold = 0.0001f;
+	public float standingGroundedSpeedThreshold = 0.0001f;
+	public float jumpInitialVelocity = 0.3f;
+	public AbstractController controller;
 
-	AbstractController controller;
-
-	private Vector2 mVelocity = new Vector2(0, 0);
+	private Vector3 mVelocity = new Vector3(0, 0);
 	private SpriteAnimator mAnimator;
+	private BoxCollider mCollider;
+	private Rigidbody mRigidBody;	
+	private CharacterController mCharacterController;
 
 	// Use this for initialization
 	void Start () {
 		mAnimator = GetComponent<SpriteAnimator>();
-		controller = GetComponent<AbstractController>();
+		mCollider = GetComponent<BoxCollider>();
+		mRigidBody = GetComponent<Rigidbody>();
+		mCharacterController = GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Vector2 iv= controller.GetIntendedVelocity();
-		mVelocity += iv * Time.deltaTime;
-		mVelocity *= 1 - friction;
-		transform.position += new Vector3(mVelocity.x, 0, mVelocity.y);
-
-		float speed = mVelocity.magnitude;
-		if (Math.Abs(speed - 0f) < standThreshold) {
-			mAnimator.SetAnimationName("stand");
-			mAnimator.SetAnimationSpeed(0);
-		} else {
-			mAnimator.SetAnimationName("walk");
-			mAnimator.SetAnimationSpeed(speed);
+		if (iv.magnitude > 1) {
+			iv *= 1/ iv.magnitude;
 		}
+		mVelocity += new Vector3(iv.x, 0, iv.y);
+		mVelocity.x *= 1 - friction;
+		mVelocity.z *= 1 - friction;
+
+		if (!IsGrounded()) {
+			mVelocity.y -= fallspeed;
+		}
+		else if (controller.ShouldJump()) {
+			mVelocity.y = jumpInitialVelocity;
+		}
+		mVelocity.y = Mathf.Max(-maxFallSpeed, mVelocity.y);
+
+		mCharacterController.Move(mVelocity * Time.deltaTime);
+
+		if (mVelocity.x > 0) {
+			mAnimator.SetFlipped(true);
+		} else if (mVelocity.x < 0) {
+			mAnimator.SetFlipped(false);
+		}
+
+		if (IsGrounded()) {
+			float groundedSpeed = new Vector2(mVelocity.x, mVelocity.z).magnitude;
+			if (Math.Abs(groundedSpeed - 0f) < standingGroundedSpeedThreshold) {
+				mAnimator.SetAnimationName("stand");
+				mAnimator.SetAnimationSpeed(0);
+			} else {
+				mAnimator.SetAnimationName("walk");
+				mAnimator.SetAnimationSpeed(groundedSpeed);
+			}
+		} else {
+			mAnimator.SetAnimationName("jumpRise");
+		}
+	}
+
+	// void OnDrawGizmos() {
+	//     Gizmos.DrawLine(transform.position, transform.position - Vector3.up * raycastDist);
+	// }
+
+	bool IsGrounded() {
+		if (!mCharacterController.isGrounded) {
+			Debug.Log("leaving the ground");
+		}
+		return mCharacterController.isGrounded;
 	}
 }
