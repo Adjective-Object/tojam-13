@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 212859008135419860}
   - component: {fileID: 114980795937001328}
   - component: {fileID: 143434182519382468}
+  - component: {fileID: 114641999554532324}
   m_Layer: 9
   m_Name: RedCoatBandit
   m_TagString: Untagged
@@ -168,6 +169,31 @@ MonoBehaviour:
     frames: 01000000
   playbackSpeed: 1
   initialAnimation: stand
+--- !u!114 &114641999554532324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564502203677932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac030a16d86ad143bad9e85b60b5491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun:
+    shootTime: 0.02
+    reloadTime: 4.1
+    ammoCapacity: 10
+    currentAmmo: 10
+    travelSpeed: 18
+    bulletPrefab: {fileID: 1319578348904368, guid: a0a23e73d7abd754e995180a92ddb881,
+      type: 2}
+    travelTime: 1.5
+    horizontalKickback: 1
+    verticalKickback: 1
+  controller: {fileID: 0}
+  movement: {fileID: 0}
+  relativeLaunchOffset: 0.1
 --- !u!114 &114707671247951324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,7 +223,7 @@ MonoBehaviour:
   maxFallSpeed: 8
   friction: 0.08
   standingGroundedSpeedThreshold: 0.0001
-  jumpInitialVelocity: 0.3
+  jumpInitialVelocity: 10
   flipThreshold: 0.4
   controller: {fileID: 114980795937001328}
 --- !u!114 &114980795937001328
@@ -211,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67430463caf07e4ba5cb5c9626e11dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shoot: {fileID: 0}
 --- !u!143 &143434182519382468
 CharacterController:
   m_ObjectHideFlags: 1

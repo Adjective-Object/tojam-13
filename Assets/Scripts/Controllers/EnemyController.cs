@@ -13,6 +13,7 @@ public class EnemyController : AbstractController
     {
         Player = GameObject.Find("player");
         shouldShoot = false;
+        if (shoot == null) shoot = GetComponent<Shoot>();
     }
 
     public override Vector2 GetIntendedVelocity()
