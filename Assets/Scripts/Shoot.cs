@@ -12,10 +12,45 @@ public class Shoot : MonoBehaviour {
         public float travelSpeed;
         public GameObject bulletPrefab;
         public float travelTime;
+        public float horizontalKickback;
+        public float verticalKickback;
+
+        public Gun(
+            float shootTime,
+            float reloadTime,
+            int ammoCapacity,
+            int currentAmmo,
+            float travelSpeed,
+            GameObject bulletPrefab,
+            float travelTime,
+            float horizontalKickback,
+            float verticalKickback
+        ) {
+            this.shootTime = shootTime;
+            this.reloadTime = reloadTime;
+            this.ammoCapacity = ammoCapacity;
+            this.currentAmmo = currentAmmo;
+            this.travelSpeed = travelSpeed;
+            this.bulletPrefab = bulletPrefab;
+            this.travelTime = travelTime;
+            this.horizontalKickback = horizontalKickback;
+            this.verticalKickback = verticalKickback;
+        }
     }
 
-    public Gun gun;
+    public Gun gun = new Gun(
+        0.02f, // shootTime
+        4.1f, // reloadTime
+        10, // ammoCapacity
+        10, // currentAmmo
+        18, // travelSpeed
+        null, // bulletPrefab
+        1.5f, // travelTime
+        1, // horizontalKickback
+        1 // verticalKickback
+    );
     public AbstractController controller;
+    public Movement movement;
     public float relativeLaunchOffset = 0.1f;
 
     float mLastShootTime = 0;
@@ -23,6 +58,8 @@ public class Shoot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (controller == null) controller = GetComponent<AbstractController>();
+        if (movement == null) movement = GetComponent<Movement>();
 	}
 	
 	// Update is called once per frame
@@ -54,13 +91,19 @@ public class Shoot : MonoBehaviour {
 
 		Quaternion localRotation = Quaternion.AngleAxis(controller.GetPointingDegrees(), Vector3.down);
 		Vector3 relativeLaunchPosition = localRotation * new Vector3(relativeLaunchOffset, 0, 0);
+        Vector3 relativeLaunchDirection = relativeLaunchPosition / relativeLaunchPosition.magnitude;
         bullet.transform.position = this.transform.position + relativeLaunchPosition;
         bullet.transform.rotation = Quaternion.AngleAxis(controller.GetPointingDegrees() - 90, Vector3.down);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
-        rigidbody.velocity = relativeLaunchPosition / relativeLaunchPosition.magnitude * gun.travelSpeed;
+        rigidbody.velocity =  relativeLaunchDirection * gun.travelSpeed;
         DeleteAfter deleteAfter = bullet.GetComponent<DeleteAfter>();
         deleteAfter.duration = gun.travelTime;
         Debug.Log(relativeLaunchOffset + ": " + relativeLaunchPosition + " : " + rigidbody.velocity);
+
+        movement.AddKickback(
+            -relativeLaunchDirection * gun.horizontalKickback +
+            new Vector3(0, gun.verticalKickback, 0)
+        );
     }
 
     void FireWhenOutOfAmmo() {

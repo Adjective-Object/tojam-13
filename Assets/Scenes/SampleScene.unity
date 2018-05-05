@@ -881,5 +881,8 @@ MonoBehaviour:
     bulletPrefab: {fileID: 1319578348904368, guid: a0a23e73d7abd754e995180a92ddb881,
       type: 2}
     travelTime: 1.5
+    horizontalKickback: 6
+    verticalKickback: 8
   controller: {fileID: 1333594050}
+  movement: {fileID: 0}
   relativeLaunchOffset: 1.5

@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour {
 	public float friction = 0.2f;
 	public float standingGroundedSpeedThreshold = 0.0001f;
 	public float jumpInitialVelocity = 0.3f;
+	public float flipThreshold = 0.4f;
 	public AbstractController controller;
 
 	private Vector3 mVelocity = new Vector3(0, 0);
@@ -18,6 +19,8 @@ public class Movement : MonoBehaviour {
 	private BoxCollider mCollider;
 	private Rigidbody mRigidBody;	
 	private CharacterController mCharacterController;
+
+	private float mFlippingEnabledTime = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -47,10 +50,12 @@ public class Movement : MonoBehaviour {
 
 		mCharacterController.Move(mVelocity * Time.deltaTime);
 
-		if (mVelocity.x > 0) {
-			mAnimator.SetFlipped(true);
-		} else if (mVelocity.x < 0) {
-			mAnimator.SetFlipped(false);
+		if (Time.realtimeSinceStartup >= mFlippingEnabledTime) {
+			if (mVelocity.x > flipThreshold) {
+				mAnimator.SetFlipped(true);
+			} else if (mVelocity.x < -flipThreshold) {
+				mAnimator.SetFlipped(false);
+			}
 		}
 
 		if (IsGrounded()) {
@@ -65,6 +70,18 @@ public class Movement : MonoBehaviour {
 		} else {
 			mAnimator.SetAnimationName("jumpRise");
 		}
+	}
+
+	public void AddKickback(Vector3 velocity) {
+		if (!IsGrounded()) {
+			velocity.y = 0;
+		}
+		mVelocity += velocity;
+		FreezeFlipped(0.3f);
+	}
+
+	public void FreezeFlipped(float time) {
+		this.mFlippingEnabledTime = Time.realtimeSinceStartup + time;
 	}
 
 	// void OnDrawGizmos() {
