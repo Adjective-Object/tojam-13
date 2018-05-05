@@ -779,10 +779,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkspeed: 30
   fallspeed: 1
-  maxFallSpeed: 0.3
+  maxFallSpeed: 8
   friction: 0.08
   standingGroundedSpeedThreshold: 0.0001
-  jumpInitialVelocity: 0.3
+  jumpInitialVelocity: 10
   controller: {fileID: 1333594050}
 --- !u!54 &1333594053
 Rigidbody:
