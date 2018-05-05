@@ -26,7 +26,7 @@ public class Platformer : MonoBehaviour {
 		Vector2 iv= GetIntendedVelocity();
 		velocity += iv * Time.deltaTime;
 		velocity *= 1 - friction;
-		transform.position += new Vector3(velocity.x, velocity.y, 0);
+		transform.position += new Vector3(velocity.x, 0, velocity.y);
 
 		float speed = velocity.magnitude;
 		if (Math.Abs(speed - 0f) < standThreshold) {

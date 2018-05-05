@@ -11,13 +11,13 @@ public class GameCamera : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         delta = transform.position - player.transform.position;
-        delta.z = 0;
+        delta.y = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         Vector3 velocity = Vector3.zero;
-        Vector3 target = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z) + delta;
+        Vector3 target = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) + delta;
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, 0.1f);
     }
 }
