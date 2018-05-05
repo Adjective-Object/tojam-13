@@ -20,7 +20,9 @@ public class EnemyController : AbstractController
 
     public override Vector2 GetIntendedVelocity()
     {
-        if (Time.realtimeSinceStartup - lastTargetUpdate > 2.5 || Vector2.Distance(target, new Vector2(transform.position.x, transform.position.z)) < 2)
+        if (Time.realtimeSinceStartup - lastTargetUpdate > 2.5 ||
+            Vector2.Distance(target, new Vector2(transform.position.x, transform.position.z)) < 3 ||
+            Vector2.Distance(target, new Vector2(Player.transform.position.x, Player.transform.position.z)) > 10)
         {
             lastTargetUpdate = Time.realtimeSinceStartup;
 
