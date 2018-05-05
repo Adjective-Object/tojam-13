@@ -10,7 +10,6 @@ public class DeleteAfter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         mStartTime = (mStartTime == 0) ? Time.realtimeSinceStartup : mStartTime;
-        Debug.Log(mStartTime + ":" + Time.realtimeSinceStartup);
         if (Time.realtimeSinceStartup >= mStartTime + duration) {
             Destroy(this.gameObject);
         }

@@ -83,7 +83,6 @@ public class Shoot : MonoBehaviour {
 	}
 
     void FireGun(float currentTime) {
-        Debug.Log("firing");
         mLastShootTime = currentTime;
         gun.currentAmmo--;
         GameObject bullet = GameObject.Instantiate(gun.bulletPrefab);
@@ -97,7 +96,6 @@ public class Shoot : MonoBehaviour {
         rigidbody.velocity =  relativeLaunchDirection * gun.travelSpeed;
         DeleteAfter deleteAfter = bullet.GetComponent<DeleteAfter>();
         deleteAfter.duration = gun.travelTime;
-        Debug.Log(relativeLaunchOffset + ": " + relativeLaunchPosition + " : " + rigidbody.velocity);
 
         movement.AddKickback(
             -relativeLaunchDirection * gun.horizontalKickback +
@@ -106,11 +104,9 @@ public class Shoot : MonoBehaviour {
     }
 
     void FireWhenOutOfAmmo() {
-        Debug.Log("out of ammo");
     }
 
     void Reload(float currentTime) {
-        Debug.Log("reloading");
         mLastReloadTime = currentTime;
         gun.currentAmmo = gun.ammoCapacity;
     }

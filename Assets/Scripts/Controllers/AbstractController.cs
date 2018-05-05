@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AbstractController : MonoBehaviour{
+public abstract class AbstractController : MonoBehaviour, ICanDie {
 	private float mLastPointing = 0;
 
 	public abstract Vector2 GetIntendedVelocity();
@@ -17,7 +17,7 @@ public abstract class AbstractController : MonoBehaviour{
 		return mLastPointing;
 	}
 
-	public void Die() {
+	public virtual void Die() {
 		Object.Destroy(this.gameObject);
 	}
 }

@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Life : MonoBehaviour {
+public class Health : MonoBehaviour, IHurtbox {
     public AbstractController controller;
     public int maxHitpoints = 10;
     private int mHitpoints = 10;
+    private bool mIsDead = false;
     public int HP {
         get { return mHitpoints; }
     }
@@ -17,8 +18,13 @@ public class Life : MonoBehaviour {
     }
 
     void Update() {
-        if (this.mHitpoints <= 0) {
+        if (!mIsDead && this.mHitpoints <= 0) {
+            mIsDead = true;
             controller.Die();
-        }            
+        }
+    }
+
+    public void OnHit(Attack a) {
+        this.mHitpoints -= a.damage;
     }
 }

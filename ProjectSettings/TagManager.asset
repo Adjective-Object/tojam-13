@@ -15,9 +15,9 @@ TagManager:
   - 
   - PostProcessing
   - Enemies
-  - 
-  - 
-  - 
+  - Player
+  - PlayerAttacks
+  - EnemyAttacks
   - 
   - 
   - 

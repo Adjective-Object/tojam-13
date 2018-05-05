@@ -29,13 +29,15 @@ public class PlayerController : AbstractController {
     }
 
     public override bool ShouldShoot() {
-		// Debug.Log("shoot? " + shootButton + ": " + Input.GetButtonDown(shootButton));
-        return Input.GetKeyDown("z");
+        return Input.GetButtonDown(shootButton);
     }
 
     public override bool ShouldReload() {
-		// Debug.Log("reload? " + reloadButton + ": " + Input.GetButtonDown(reloadButton));
-        return Input.GetKeyDown("x");
+        return Input.GetButtonDown(reloadButton);
     }
+
+	public override void Die() {
+		Debug.Log("Death of Player");
+	}
 
 }

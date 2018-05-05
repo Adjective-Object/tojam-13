@@ -75,7 +75,6 @@ public class EnemyController : AbstractController
         if (Time.realtimeSinceStartup - lastJump > 2.0f && Player.transform.position.y - transform.position.y > 2)
         {
             lastJump = Time.realtimeSinceStartup;
-            Debug.Log("True");
             return true;
         }
         return false;
