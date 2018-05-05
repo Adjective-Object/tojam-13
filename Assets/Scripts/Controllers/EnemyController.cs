@@ -8,6 +8,8 @@ public class EnemyController : AbstractController
     public Shoot shoot;
     bool shouldShoot;
     float lastJump = 0;
+    float lastTargetUpdate = 0;
+    Vector2 target;
     // Use this for initialization
     void Start()
     {
@@ -18,8 +20,21 @@ public class EnemyController : AbstractController
 
     public override Vector2 GetIntendedVelocity()
     {
-        
-        Vector2 playerPos = new Vector2(Player.transform.position.x, Player.transform.position.z);
+        if (Time.realtimeSinceStartup - lastTargetUpdate > 2.5 || Vector2.Distance(target, new Vector2(transform.position.x, transform.position.z)) < 2)
+        {
+            lastTargetUpdate = Time.realtimeSinceStartup;
+
+            Vector2 target = new Vector2();
+            Vector2 player = new Vector2(Player.transform.position.x, Player.transform.position.z);
+            do
+            {
+                target.x = UnityEngine.Random.Range(-10.0f, 10.0f);
+                target.y = UnityEngine.Random.Range(-10.0f, 10.0f);
+            } while (Vector2.Distance(target, Vector2.zero) < 5 || Vector2.Distance(target, Vector2.zero) > 10);
+            this.target = player + target;
+        }
+
+        Vector2 playerPos = target;
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.z);
         if(Vector2.Distance(playerPos, enemyPos) > 5)
         {
