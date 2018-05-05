@@ -44,7 +44,7 @@ public class EnemyController : AbstractController
             velocity.Normalize();
             return velocity;
         }
-        if (Vector2.Distance(playerPos, enemyPos) < 15)
+        if (Vector2.Distance(playerPos, enemyPos) < 20)
         {
             shouldShoot = true;
         }

@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 212752628144122196}
   - component: {fileID: 114876078630426732}
   - component: {fileID: 143163635742610108}
+  - component: {fileID: 114231569730625852}
   m_Layer: 9
   m_Name: Sheriff
   m_TagString: Untagged
@@ -168,6 +169,31 @@ MonoBehaviour:
     frames: 01000000
   playbackSpeed: 1
   initialAnimation: stand
+--- !u!114 &114231569730625852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829765150972306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac030a16d86ad143bad9e85b60b5491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun:
+    shootTime: 0.5
+    reloadTime: 4.1
+    ammoCapacity: 10
+    currentAmmo: 10
+    travelSpeed: 18
+    bulletPrefab: {fileID: 1319578348904368, guid: a0a23e73d7abd754e995180a92ddb881,
+      type: 2}
+    travelTime: 1.5
+    horizontalKickback: 1
+    verticalKickback: 1
+  controller: {fileID: 114876078630426732}
+  movement: {fileID: 114709919255379994}
+  relativeLaunchOffset: 0.1
 --- !u!114 &114459561948885684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67430463caf07e4ba5cb5c9626e11dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shoot: {fileID: 0}
 --- !u!143 &143163635742610108
 CharacterController:
   m_ObjectHideFlags: 1
