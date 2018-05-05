@@ -23,9 +23,9 @@ public class Platformer : MonoBehaviour {
 		Vector2 iv= GetIntendedVelocity();
 		mVelocity += iv * Time.deltaTime;
 		mVelocity *= 1 - friction;
-		transform.position += new Vector3(velocity.x, 0, velocity.y);
+		transform.position += new Vector3(mVelocity.x, 0, mVelocity.y);
 
-		float speed = velocity.magnitude;
+		float speed = mVelocity.magnitude;
 		if (Math.Abs(speed - 0f) < standThreshold) {
 			mAnimator.Reset();
 			mAnimator.SetAnimationSpeed(0);
