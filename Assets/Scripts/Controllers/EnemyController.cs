@@ -36,4 +36,9 @@ public class EnemyController : AbstractController
         //Debug.Log("Angle: " + angle);
         return angle;
     }
+
+    public override bool ShouldJump()
+    {
+        return false;
+    }
 }

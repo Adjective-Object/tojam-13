@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114285258004166514}
   - component: {fileID: 212859008135419860}
   - component: {fileID: 114980795937001328}
+  - component: {fileID: 143434182519382468}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0.1
-  controller: {fileID: 0}
+  controller: {fileID: 114980795937001328}
 --- !u!114 &114865981622855486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,10 +117,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fc0c0b69c1b08408de4cae550b7d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkspeed: 30
   fallspeed: 1
-  walkspeed: 1
-  friction: 0.2
-  standThreshold: 0.0001
+  maxFallSpeed: 8
+  friction: 0.08
+  standingGroundedSpeedThreshold: 0.0001
+  jumpInitialVelocity: 0.3
+  controller: {fileID: 114980795937001328}
 --- !u!114 &114980795937001328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,6 +135,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67430463caf07e4ba5cb5c9626e11dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &143434182519382468
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564502203677932}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 0.32
+  m_Radius: 0.16
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212841771850518640
 SpriteRenderer:
   m_ObjectHideFlags: 1
