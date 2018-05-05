@@ -32,9 +32,11 @@ public class EnemyController : AbstractController
 
     protected override float GetIntendedPointingDegrees()
     {
-        float angle = Vector2.Angle(new Vector2(transform.position.x, transform.position.z), new Vector2(Player.transform.position.x, Player.transform.position.z));
-        //Debug.Log("Angle: " + angle);
-        return angle;
+        Vector2 myPosition = new Vector2(transform.position.x, transform.position.z);
+        Vector2 playerPosition = new Vector2(Player.transform.position.x, Player.transform.position.z);
+        Vector2 offset = playerPosition - myPosition;
+
+ 		return Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
     }
 
     public override bool ShouldJump()
