@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 212859008135419860}
   - component: {fileID: 114980795937001328}
   - component: {fileID: 143434182519382468}
+  - component: {fileID: 114086371234166770}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -148,6 +149,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369901379493272}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114086371234166770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564502203677932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac030a16d86ad143bad9e85b60b5491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun:
+    shootTime: 2
+    reloadTime: 1
+    ammoCapacity: 5
+    currentAmmo: 5
+    travelSpeed: 5
+    bulletPrefab: {fileID: 1319578348904368, guid: a0a23e73d7abd754e995180a92ddb881,
+      type: 2}
+    travelTime: 10
+    horizontalKickback: 1
+    verticalKickback: 1
+  controller: {fileID: 114980795937001328}
+  movement: {fileID: 0}
+  relativeLaunchOffset: 0.1
 --- !u!114 &114285258004166514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,7 +223,8 @@ MonoBehaviour:
   maxFallSpeed: 8
   friction: 0.08
   standingGroundedSpeedThreshold: 0.0001
-  jumpInitialVelocity: 0.3
+  jumpInitialVelocity: 10
+  flipThreshold: 0.4
   controller: {fileID: 114980795937001328}
 --- !u!114 &114980795937001328
 MonoBehaviour:
@@ -210,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67430463caf07e4ba5cb5c9626e11dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shoot: {fileID: 114086371234166770}
 --- !u!143 &143434182519382468
 CharacterController:
   m_ObjectHideFlags: 1

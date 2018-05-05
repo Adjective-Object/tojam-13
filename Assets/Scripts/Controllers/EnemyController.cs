@@ -5,15 +5,19 @@ using UnityEngine;
 public class EnemyController : AbstractController
 {
     GameObject Player;
-
+    public Shoot shoot;
+    bool shouldShoot;
+    float lastJump = 0;
     // Use this for initialization
     void Start()
     {
         Player = GameObject.Find("player");
+        shouldShoot = false;
     }
 
     public override Vector2 GetIntendedVelocity()
     {
+        
         Vector2 playerPos = new Vector2(Player.transform.position.x, Player.transform.position.z);
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.z);
         if(Vector2.Distance(playerPos, enemyPos) > 5)
@@ -22,6 +26,15 @@ public class EnemyController : AbstractController
             velocity.Normalize();
             return velocity;
         }
+        if (Vector2.Distance(playerPos, enemyPos) < 15)
+        {
+            shouldShoot = true;
+        }
+        else
+        {
+            shouldShoot = false;
+        }
+
         return Vector2.zero;
     }
 
@@ -41,14 +54,20 @@ public class EnemyController : AbstractController
 
     public override bool ShouldJump()
     {
+        if (Time.realtimeSinceStartup - lastJump > 2.0f && Player.transform.position.y - transform.position.y > 2)
+        {
+            lastJump = Time.realtimeSinceStartup;
+            Debug.Log("True");
+            return true;
+        }
         return false;
     }
 
     public override bool ShouldShoot() {
-        return true;
+        return shouldShoot;
     }
     
     public override bool ShouldReload() {
-        return false;
+        return shoot.gun.currentAmmo == 0;
     }
 }
