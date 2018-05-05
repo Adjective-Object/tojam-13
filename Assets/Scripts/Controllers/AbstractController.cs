@@ -16,4 +16,8 @@ public abstract class AbstractController : MonoBehaviour{
 		}
 		return mLastPointing;
 	}
+
+	public void Die() {
+		Object.Destroy(this.gameObject);
+	}
 }
