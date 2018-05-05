@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UVAnimation : MonoBehaviour {
-	public float playbackSpeed = 10f;
+	public float playbackSpeed = 100f;
 	private SpriteRenderer spr;
 	private Sprite [] sprites;
 	private float mAnimationTime = 0;
