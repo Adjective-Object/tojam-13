@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abb688cee3ba9943b5ce76c93cdb05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playbackSpeed: 100
+  playbackSpeed: 200
 --- !u!212 &1333594049
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6030a5eb690231a44afa45d5901b365f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 049c89967ae0860488058a86d7f7962d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -450,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11067ec4336066c41b25e8a1399c10b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1333594048}
   fallspeed: 1
   walkspeed: 1
   friction: 0.2

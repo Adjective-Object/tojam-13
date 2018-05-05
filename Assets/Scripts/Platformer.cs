@@ -5,35 +5,32 @@ using UnityEngine;
 
 public class Platformer : MonoBehaviour {
 
-	public UVAnimation animator;
-
 	public float fallspeed = 1f;
 	public float walkspeed = 0.5f;
-
 	public float friction = 0.2f;
-
 	public float standThreshold = 0.0001f;
 
-	private Vector2 velocity = new Vector2(0, 0);
+	private Vector2 mVelocity = new Vector2(0, 0);
+	private SpriteAnimation mAnimator;
 
 	// Use this for initialization
 	void Start () {
-		
+		mAnimator = GetComponent<SpriteAnimation>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Vector2 iv= GetIntendedVelocity();
-		velocity += iv * Time.deltaTime;
-		velocity *= 1 - friction;
+		mVelocity += iv * Time.deltaTime;
+		mVelocity *= 1 - friction;
 		transform.position += new Vector3(velocity.x, 0, velocity.y);
 
 		float speed = velocity.magnitude;
 		if (Math.Abs(speed - 0f) < standThreshold) {
-			animator.Reset();
-			animator.SetAnimationSpeed(0);
+			mAnimator.Reset();
+			mAnimator.SetAnimationSpeed(0);
 		} else {
-			animator.SetAnimationSpeed(speed);
+			mAnimator.SetAnimationSpeed(speed);
 		}
 	}
 
