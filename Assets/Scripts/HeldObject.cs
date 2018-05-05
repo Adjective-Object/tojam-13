@@ -14,10 +14,7 @@ public class HeldObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (controller.ShouldSetPointing()) {
-			float pointing = controller.GetIntendedPointingDegrees();
-			SetPointingDegrees(pointing);
-		}
+		SetPointingDegrees(controller.GetPointingDegrees());
 	}
 
 	private void SetPointingDegrees(float inputDegrees) {

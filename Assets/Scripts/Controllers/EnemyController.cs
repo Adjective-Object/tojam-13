@@ -25,12 +25,12 @@ public class EnemyController : AbstractController
         return Vector2.zero;
     }
 
-    public override bool ShouldSetPointing()
+    protected override bool ShouldSetPointing()
     {
         return true;
     }
 
-    public override float GetIntendedPointingDegrees()
+    protected override float GetIntendedPointingDegrees()
     {
         float angle = Vector2.Angle(new Vector2(transform.position.x, transform.position.z), new Vector2(Player.transform.position.x, Player.transform.position.z));
         //Debug.Log("Angle: " + angle);
@@ -39,6 +39,14 @@ public class EnemyController : AbstractController
 
     public override bool ShouldJump()
     {
+        return false;
+    }
+
+    public override bool ShouldShoot() {
+        return true;
+    }
+    
+    public override bool ShouldReload() {
         return false;
     }
 }

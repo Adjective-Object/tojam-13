@@ -72,9 +72,6 @@ public class Movement : MonoBehaviour {
 	// }
 
 	bool IsGrounded() {
-		if (!mCharacterController.isGrounded) {
-			Debug.Log("leaving the ground");
-		}
 		return mCharacterController.isGrounded;
 	}
 }
