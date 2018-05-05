@@ -45,6 +45,10 @@ public class SpriteAnimator : MonoBehaviour {
 		mAnimationSpeed = speed;
 	}
 
+	public void SetFlipped(bool flipped) {
+		mSpriteRenderer.flipX = flipped;
+	}
+
 	public void Reset() {
 		mAnimationTime = 0;
 	}
