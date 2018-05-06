@@ -41,14 +41,16 @@ public class EnemySpawner : MonoBehaviour {
                 GameObject enemyPrefab = EnemyPrefabs[UnityEngine.Random.Range(0, EnemyPrefabs.Count)];
                 GameObject newEnemyInstance = (GameObject)Instantiate(enemyPrefab);
 
+                newEnemyInstance.transform.position = new Vector3(-14, 4, -67);
+                /*
                 Vector2 spawn = new Vector2();
                 do
                 {
                     spawn.x = UnityEngine.Random.Range(-40.0f, 40.0f);
                     spawn.y = UnityEngine.Random.Range(-40.0f, 40.0f);
                 } while (Vector2.Distance(spawn, Vector2.zero) > 20);
-
-                newEnemyInstance.transform.position = Player.transform.position + new Vector3(spawn.x, 0, spawn.y);
+                */
+                //newEnemyInstance.transform.position = Player.transform.position + new Vector3(spawn.x, 0, spawn.y);
                 Enemies.Add(newEnemyInstance);
             }
         }
