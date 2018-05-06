@@ -26,7 +26,6 @@ public class PlayerController : AbstractController {
 			RaycastHit hit;
 			Ray ray = mousePointingRaycastOrigin.ScreenPointToRay(Input.mousePosition);
 			bool hitSomething = Physics.Raycast(ray, out hit);
-			Debug.Log("cast over ray " + ray + "hit?" + hitSomething);
 			return hitSomething;
 		} else {
 			return Mathf.Abs(Input.GetAxis(xAxisPointing)) > pointingAxisThreshold ||
