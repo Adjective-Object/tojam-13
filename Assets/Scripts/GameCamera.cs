@@ -5,13 +5,14 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour {
 
 
-    public MonoBehaviour player;
+    public GameObject player;
     Vector3 delta;
 
 	// Use this for initialization
 	void Start () {
         delta = transform.position - player.transform.position;
         delta.y = 0;
+        if (player == null) player = GameObject.Find("player");
 	}
 	
 	// Update is called once per frame

@@ -13,6 +13,10 @@ public class PlayerController : AbstractController {
 	public Camera mousePointingRaycastOrigin;
 	public bool useMousePointing = true;
 
+	void Start() {
+		if (mousePointingRaycastOrigin == null) mousePointingRaycastOrigin = Camera.main;
+	}
+
 	public override Vector2 GetIntendedVelocity() {
  		return new Vector2(Input.GetAxis(xAxisMovement), Input.GetAxis(yAxisMovement));
 	}
