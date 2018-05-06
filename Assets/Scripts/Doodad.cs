@@ -19,8 +19,9 @@ public class Doodad : MonoBehaviour {
 		if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
 		mSprites = Resources.LoadAll<Sprite> (spriteRenderer.sprite.texture.name);
 		int index = Random.Range(0, this.doodadOptions.Length);
-		spriteRenderer.sprite = mSprites[this.doodadOptions[index].frame];
-		this.transform.position += offset;
+		DoodadOption option = this.doodadOptions[index];
+		spriteRenderer.sprite = mSprites[option.frame];
+		this.transform.position += option.offset;
 	}
 	
 	// Update is called once per frame
