@@ -244,8 +244,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 132080548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12.468771, y: 8.53528, z: 12.861189}
+  m_LocalPosition: {x: 0, y: 0, z: 52.4}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -361,7 +361,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 0.83246005, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -653,7 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numSceneObjects: 200
-  numBuildings: 10
+  numBuildings: 50
   SceneObjects:
   - {fileID: 1116167897841746, guid: fb911487680c1a549ab0ce11efa4ee40, type: 2}
   - {fileID: 1416604101578424, guid: e045f912f18705740ae102d006697f0b, type: 2}

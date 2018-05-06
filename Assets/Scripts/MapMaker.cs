@@ -20,7 +20,8 @@ public class MapMaker : MonoBehaviour {
         }
 
         List<GameObject> spawnedBuildings = new List<GameObject>();
-        for (int i = 0; i < numBuildings; i++)
+        int numTries = 0;
+        for (int i = 0; i < numBuildings && numTries < 100; i++)
         {
             GameObject item = Buildings[Random.Range(0, Buildings.Count)];
             GameObject instance = (GameObject)Instantiate(item);
@@ -31,7 +32,7 @@ public class MapMaker : MonoBehaviour {
                 bool tooClose = false;
                 foreach(GameObject building in spawnedBuildings)
                 {
-                    if (Vector3.Distance(building.transform.position, instance.transform.position) < 10)
+                    if (Vector3.Distance(building.transform.position, instance.transform.position) < 15)
                     {
                         tooClose = true;
                         break;
@@ -39,8 +40,12 @@ public class MapMaker : MonoBehaviour {
                 }
                 if (!tooClose)
                 {
+                    numTries = 0;
                     break;
                 }
+                if (numTries > 100)
+                    break;
+                numTries++;
             }
             spawnedBuildings.Add(instance);
         }
