@@ -56,6 +56,13 @@ public class EnemyController : AbstractController
         return true;
     }
 
+    public override void Die()
+    {
+        base.Die();
+        EnemySpawner spawner = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
+        spawner.Remove(this.gameObject);
+    }
+
     protected override float GetIntendedPointingDegrees()
     {
         Vector2 myPosition = new Vector2(transform.position.x, transform.position.z);

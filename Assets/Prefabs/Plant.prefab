@@ -144,7 +144,7 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
   - frame: 8
     offset: {x: 0, y: 0, z: 0}
-  - frame: 9
+  - frame: 0
     offset: {x: 0, y: 0, z: 0}
 --- !u!136 &136492053798299432
 CapsuleCollider:
