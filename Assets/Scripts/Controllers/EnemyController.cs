@@ -14,6 +14,7 @@ public class EnemyController : AbstractController
     float jumpingTime;
 
     bool random;
+    float randomTime;
     // Use this for initialization
     void Start()
     {
@@ -42,9 +43,10 @@ public class EnemyController : AbstractController
             {
                 lastTargetUpdate = Time.realtimeSinceStartup;
 
-                random = Random.value > 0.97f;
+                random = Random.value > 0.8f && Time.realtimeSinceStartup - randomTime > 20;
                 if (random)
                 {
+                    randomTime = Time.realtimeSinceStartup;
                     target.x = UnityEngine.Random.Range(-50.0f, 50.0f);
                     target.y = UnityEngine.Random.Range(-50.0f, 50.0f);
                 }
