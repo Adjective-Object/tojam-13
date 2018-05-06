@@ -53,6 +53,7 @@ public class Shoot : MonoBehaviour {
     public Movement movement;
     public MuzzleFlashManager muzzleFlash;
     public float relativeLaunchOffset = 0.1f;
+    public string attackLayerName = "EnemyAttacks";
 
     float mLastShootTime = 0;
     float mLastReloadTime = 0;
@@ -87,6 +88,7 @@ public class Shoot : MonoBehaviour {
         mLastShootTime = currentTime;
         gun.currentAmmo--;
         GameObject bullet = GameObject.Instantiate(gun.bulletPrefab);
+        bullet.layer = LayerMask.NameToLayer(attackLayerName);
 
 		Quaternion localRotation = Quaternion.AngleAxis(controller.GetPointingDegrees(), Vector3.down);
 		Vector3 relativeLaunchPosition = localRotation * new Vector3(relativeLaunchOffset, 0, 0);
