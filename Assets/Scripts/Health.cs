@@ -6,7 +6,7 @@ using UnityEngine;
 public class Health : MonoBehaviour, IHurtbox {
     public AbstractController controller;
     public int maxHitpoints = 10;
-    private int mHitpoints = 10;
+    public int mHitpoints = 10;
     private bool mIsDead = false;
     public int HP {
         get { return mHitpoints; }
