@@ -14,7 +14,7 @@ public class HealthIndicator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		int numIndicators = (int)Mathf.Ceil(health.maxHitpoints / (float) healthPerIndicator);
-		Vector3 startingPosition = -indicatorOffset * (numIndicators / 2);
+		Vector3 startingPosition = -indicatorOffset * ((float)(numIndicators - 1) / 2);
 		for (int i=0; i< numIndicators; i++) {
 			GameObject indicatorPrefabInstance = Instantiate(indicatorPrefab);
 			indicatorPrefabInstance.transform.parent = this.gameObject.transform;
