@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour {
     List<GameObject> Enemies;
     GameObject Player;
 
+    float wave;
+
 	// Use this for initialization
 	void Start () {
         Enemies = new List<GameObject>();
@@ -19,29 +21,36 @@ public class EnemySpawner : MonoBehaviour {
                 "No prefabs set"
             );
         }
+        wave = -100;
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-		foreach(GameObject enemy in Enemies)
+    public void Remove(GameObject enemy)
+    {
+        Enemies.Remove(enemy);
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        if (Time.realtimeSinceStartup - wave > 30)
         {
-        }
-
-        while (Enemies.Count < enemyCap)
-        {
-            GameObject enemyPrefab = EnemyPrefabs[UnityEngine.Random.Range(0, EnemyPrefabs.Count)];
-            GameObject newEnemyInstance = (GameObject)Instantiate(enemyPrefab);
-
-            Vector2 spawn = new Vector2();
-            do
+            enemyCap++;
+            wave = Time.realtimeSinceStartup;
+            for(int i = 0; i < enemyCap; i++)
             {
-                spawn.x = UnityEngine.Random.Range(-10.0f, 10.0f);
-                spawn.y = UnityEngine.Random.Range(-10.0f, 10.0f);
-            } while (Vector2.Distance(spawn, Vector2.zero) > 10);
+                GameObject enemyPrefab = EnemyPrefabs[UnityEngine.Random.Range(0, EnemyPrefabs.Count)];
+                GameObject newEnemyInstance = (GameObject)Instantiate(enemyPrefab);
 
-            newEnemyInstance.transform.position = Player.transform.position + new Vector3(spawn.x, 0, spawn.y);
-            Enemies.Add(newEnemyInstance);
+                Vector2 spawn = new Vector2();
+                do
+                {
+                    spawn.x = UnityEngine.Random.Range(-40.0f, 40.0f);
+                    spawn.y = UnityEngine.Random.Range(-40.0f, 40.0f);
+                } while (Vector2.Distance(spawn, Vector2.zero) > 20);
+
+                newEnemyInstance.transform.position = Player.transform.position + new Vector3(spawn.x, 0, spawn.y);
+                Enemies.Add(newEnemyInstance);
+            }
         }
 	}
 }
