@@ -19,11 +19,35 @@ public class MapMaker : MonoBehaviour {
             instance.transform.position = new Vector3(Random.Range(-50, 50), item.transform.position.y, Random.Range(-50, 50));
         }
 
-        for (int i = 0; i < numBuildings; i++)
+        List<GameObject> spawnedBuildings = new List<GameObject>();
+        int numTries = 0;
+        for (int i = 0; i < numBuildings && numTries < 100; i++)
         {
             GameObject item = Buildings[Random.Range(0, Buildings.Count)];
             GameObject instance = (GameObject)Instantiate(item);
-            instance.transform.position = new Vector3(Random.Range(-50, 50), item.transform.position.y, Random.Range(-50, 50));
+
+            while (true)
+            {
+                instance.transform.position = new Vector3(Random.Range(-50, 50), item.transform.position.y, Random.Range(-50, 50));
+                bool tooClose = false;
+                foreach(GameObject building in spawnedBuildings)
+                {
+                    if (Vector3.Distance(building.transform.position, instance.transform.position) < 15)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+                if (!tooClose)
+                {
+                    numTries = 0;
+                    break;
+                }
+                if (numTries > 100)
+                    break;
+                numTries++;
+            }
+            spawnedBuildings.Add(instance);
         }
     }
 	
