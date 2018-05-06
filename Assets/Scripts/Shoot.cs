@@ -15,7 +15,6 @@ public class Shoot : MonoBehaviour {
         public float horizontalKickback;
         public float verticalKickback;
 
-
         public Gun(
             float shootTime,
             float reloadTime,
@@ -52,8 +51,8 @@ public class Shoot : MonoBehaviour {
     );
     public AbstractController controller;
     public Movement movement;
+    public MuzzleFlashManager muzzleFlash;
     public float relativeLaunchOffset = 0.1f;
-    public string attackLayerName = "EnemyAttacks";
 
     float mLastShootTime = 0;
     float mLastReloadTime = 0;
@@ -88,7 +87,6 @@ public class Shoot : MonoBehaviour {
         mLastShootTime = currentTime;
         gun.currentAmmo--;
         GameObject bullet = GameObject.Instantiate(gun.bulletPrefab);
-        bullet.layer = LayerMask.NameToLayer(attackLayerName);
 
 		Quaternion localRotation = Quaternion.AngleAxis(controller.GetPointingDegrees(), Vector3.down);
 		Vector3 relativeLaunchPosition = localRotation * new Vector3(relativeLaunchOffset, 0, 0);
@@ -104,6 +102,10 @@ public class Shoot : MonoBehaviour {
             -relativeLaunchDirection * gun.horizontalKickback +
             new Vector3(0, gun.verticalKickback, 0)
         );
+
+        if (muzzleFlash) {
+            muzzleFlash.AddMuzzleFlash();
+        }
     }
 
     void FireWhenOutOfAmmo() {

@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MuzzleFlashManager : MonoBehaviour {
+
+	public GameObject muzzleFlash;
+	public float muzzleFlashLifetime = 5.0f;
+	struct MuzzleFlashInstance {
+		public float deathTime;
+		public GameObject gameObject;
+		public MuzzleFlashInstance(float deathTime, GameObject gameObject) {
+			this.deathTime = deathTime;
+			this.gameObject = gameObject;
+		}
+	};
+	LinkedList<MuzzleFlashInstance> instances = new LinkedList<MuzzleFlashInstance>();
+	
+	// Update is called once per frame
+	void Update () {
+		while (instances.Count > 0) {
+			MuzzleFlashInstance instance = instances.First.Value;
+			if (instance.deathTime > Time.realtimeSinceStartup) break;
+			Debug.Log("removing muzzle flash");
+			instances.RemoveFirst();
+		}
+	}
+
+	public void AddMuzzleFlash() {
+		Debug.Log("adding muzzle flash");
+		GameObject flash = GameObject.Instantiate(muzzleFlash);
+		flash.transform.SetParent(this.transform, false);
+		instances.AddLast(new MuzzleFlashInstance(
+			Time.realtimeSinceStartup + muzzleFlashLifetime,
+			flash
+		));
+	}
+}

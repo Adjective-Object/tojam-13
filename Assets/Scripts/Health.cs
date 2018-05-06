@@ -34,7 +34,7 @@ public class Health : MonoBehaviour, IHurtbox {
     }
 
     public int RegisterChangeListener(Action a) {
-        this.changeListeners.Add(actionListenerCount++, a);
+        this.changeListeners.Add(++actionListenerCount, a);
         return actionListenerCount;
     }
 
