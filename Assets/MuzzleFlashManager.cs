@@ -31,6 +31,8 @@ public class MuzzleFlashManager : MonoBehaviour {
 		Debug.Log("adding muzzle flash");
 		GameObject flash = GameObject.Instantiate(muzzleFlash);
 		flash.transform.SetParent(this.transform, false);
+		flash.transform.SetParent(null);
+		flash.transform.RotateAround(flash.transform.position, Vector3.right, 90);
 		instances.AddLast(new MuzzleFlashInstance(
 			Time.realtimeSinceStartup + muzzleFlashLifetime,
 			flash
