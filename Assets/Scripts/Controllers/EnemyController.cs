@@ -102,7 +102,7 @@ public class EnemyController : AbstractController
     public override bool ShouldJump()
     {
         if (Time.realtimeSinceStartup - lastJump > jumpingTime || 
-            (Time.realtimeSinceStartup - lastJump > 2.0f && Player.transform.position.y - transform.position.y > 2))
+            (Time.realtimeSinceStartup - lastJump > jumpingTime/3 && Player.transform.position.y - transform.position.y > 2))
         {
             lastJump = Time.realtimeSinceStartup;
             return true;
