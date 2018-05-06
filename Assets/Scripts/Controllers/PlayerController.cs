@@ -61,7 +61,7 @@ public class PlayerController : AbstractController {
     }
 
     public override bool ShouldShoot() {
-        return Input.GetButtonDown(shootButton);
+        return Input.GetButton(shootButton);
     }
 
     public override bool ShouldReload() {

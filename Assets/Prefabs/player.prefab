@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun:
-    shootTime: 0.02
+    shootTime: 0.2
     reloadTime: 1
     ammoCapacity: 10
     currentAmmo: 10
