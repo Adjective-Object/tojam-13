@@ -52,6 +52,8 @@ public class Shoot : MonoBehaviour {
     public AbstractController controller;
     public Movement movement;
     public MuzzleFlashManager muzzleFlash;
+    public AmmoIndicator ammoIndicator;
+
     public float relativeLaunchOffset = 0.1f;
     public string attackLayerName = "EnemyAttacks";
 
@@ -64,6 +66,10 @@ public class Shoot : MonoBehaviour {
         if (movement == null) movement = GetComponent<Movement>();
         mLastShootTime = -gun.shootTime;
         mLastReloadTime = -gun.reloadTime;
+
+        if (ammoIndicator) {
+            ammoIndicator.UpdateAmmo(gun.currentAmmo);
+        }
 	}
 	
 	// Update is called once per frame
@@ -108,6 +114,10 @@ public class Shoot : MonoBehaviour {
         if (muzzleFlash) {
             muzzleFlash.AddMuzzleFlash();
         }
+
+        if (ammoIndicator) {
+            ammoIndicator.UpdateAmmo(gun.currentAmmo);
+        }
     }
 
     void FireWhenOutOfAmmo() {
@@ -116,5 +126,9 @@ public class Shoot : MonoBehaviour {
     void Reload(float currentTime) {
         mLastReloadTime = currentTime;
         gun.currentAmmo = gun.ammoCapacity;
+
+        if (ammoIndicator) {
+            ammoIndicator.UpdateAmmo(gun.currentAmmo);
+        }
     }
 }

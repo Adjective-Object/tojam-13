@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameCamera : MonoBehaviour {
-
+    public float damping = 0.1f;
 
     public GameObject player;
     Vector3 delta;
@@ -19,6 +19,6 @@ public class GameCamera : MonoBehaviour {
 	void Update () {
         Vector3 velocity = Vector3.zero;
         Vector3 target = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) + delta;
-        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, 0.1f);
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, damping);
     }
 }

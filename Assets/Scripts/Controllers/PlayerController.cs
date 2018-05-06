@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class PlayerController : AbstractController {
 	public string xAxisMovement = "Horizontal";
 	public string yAxisMovement = "Vertical";
@@ -68,6 +70,7 @@ public class PlayerController : AbstractController {
 
 	public override void Die() {
 		Debug.Log("Death of Player");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 }

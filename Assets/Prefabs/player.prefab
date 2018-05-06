@@ -207,6 +207,7 @@ MonoBehaviour:
   controller: {fileID: 114661881811932412}
   movement: {fileID: 0}
   muzzleFlash: {fileID: 114405684609907120}
+  ammoIndicator: {fileID: 0}
   relativeLaunchOffset: 1.5
   attackLayerName: PlayerAttacks
 --- !u!114 &114596345064865580
