@@ -252,6 +252,7 @@ MonoBehaviour:
   controller: {fileID: 114980795937001328}
   movement: {fileID: 114865981622855486}
   relativeLaunchOffset: 0.1
+  attackLayer: EnemyAttacks
 --- !u!114 &114707671247951324
 MonoBehaviour:
   m_ObjectHideFlags: 1

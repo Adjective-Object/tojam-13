@@ -924,6 +924,7 @@ MonoBehaviour:
   controller: {fileID: 1333594050}
   movement: {fileID: 0}
   relativeLaunchOffset: 1.5
+  attackLayerName: PlayerAttacks
 --- !u!114 &1333594056
 MonoBehaviour:
   m_ObjectHideFlags: 0
