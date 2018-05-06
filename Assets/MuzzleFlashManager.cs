@@ -22,13 +22,11 @@ public class MuzzleFlashManager : MonoBehaviour {
 		while (instances.Count > 0) {
 			MuzzleFlashInstance instance = instances.First.Value;
 			if (instance.deathTime > Time.realtimeSinceStartup) break;
-			Debug.Log("removing muzzle flash");
 			instances.RemoveFirst();
 		}
 	}
 
 	public void AddMuzzleFlash() {
-		Debug.Log("adding muzzle flash");
 		GameObject flash = GameObject.Instantiate(muzzleFlash);
 		flash.transform.SetParent(this.transform, false);
 		flash.transform.SetParent(null);
