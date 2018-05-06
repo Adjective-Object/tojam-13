@@ -16,7 +16,7 @@ public class MapMaker : MonoBehaviour {
         {
             GameObject item = SceneObjects[Random.Range(0, SceneObjects.Count)];
             GameObject instance = (GameObject)Instantiate(item);
-            instance.transform.position = new Vector3(Random.Range(-50, 50), item.transform.position.y, Random.Range(-50, 50));
+            instance.transform.position = new Vector3(Random.Range(-70, 70), item.transform.position.y, Random.Range(-55, 99));
         }
 
         List<GameObject> spawnedBuildings = new List<GameObject>();
