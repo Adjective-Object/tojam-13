@@ -8,6 +8,8 @@ public class Health : MonoBehaviour, IHurtbox {
     public int maxHitpoints = 10;
     public int mHitpoints = 10;
     private bool mIsDead = false;
+    private Dictionary<int, Action> changeListeners = new Dictionary<int, Action>();
+    int actionListenerCount = 0;
     public int HP {
         get { return mHitpoints; }
     }
@@ -26,5 +28,22 @@ public class Health : MonoBehaviour, IHurtbox {
 
     public void OnHit(Attack a) {
         this.mHitpoints -= a.damage;
+        foreach(Action action in changeListeners.Values) {
+            action();
+        }
     }
+
+    public int RegisterChangeListener(Action a) {
+        this.changeListeners.Add(actionListenerCount++, a);
+        return actionListenerCount;
+    }
+
+    public void DeRegisterChangeListener(int actionListenerID) {
+        if (!changeListeners.ContainsKey(actionListenerID)) {
+            Debug.LogWarning("tried to deregister already deregistered action listener id=" + actionListenerID);
+            return;
+        }
+        changeListeners.Remove(actionListenerID);
+    }
+
 }
