@@ -6,6 +6,7 @@ public class EnemyController : AbstractController
 {
     GameObject Player;
     public Shoot shoot;
+    public float fireRate = 1f;
     bool shouldShoot;
     float lastJump = 0;
     float lastTargetUpdate = 0;
@@ -44,14 +45,8 @@ public class EnemyController : AbstractController
             velocity.Normalize();
             return velocity;
         }
-        if (Vector2.Distance(playerPos, enemyPos) < 20)
-        {
-            shouldShoot = true;
-        }
-        else
-        {
-            shouldShoot = false;
-        }
+        shouldShoot = (Vector2.Distance(playerPos, enemyPos) < 20) && 
+            Random.Range(0, 1.0f) * (1 / Mathf.Max(Time.deltaTime, 0.0001f)) < fireRate;
 
         return Vector2.zero;
     }

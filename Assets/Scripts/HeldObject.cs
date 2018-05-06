@@ -20,7 +20,10 @@ public class HeldObject : MonoBehaviour {
 	private void SetPointingDegrees(float inputDegrees) {
 		float degrees = (inputDegrees + 360f) % 360f;
 		this.transform.localRotation = Quaternion.AngleAxis(degrees, Vector3.forward);
-		this.transform.localPosition = this.transform.localRotation * new Vector3(offset, 0, 0);
+		this.transform.localPosition =
+			this.transform.localRotation * new Vector3(offset, 0, 0) +
+			// Retain local z coordinate on rotation
+			new Vector3(0, 0, this.transform.localPosition.z);
 		bool shouldFlip = (degrees > 90 && degrees < 270);
 		mSpriteRenderer.flipY = shouldFlip;
 	}
