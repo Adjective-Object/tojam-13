@@ -254,6 +254,7 @@ MonoBehaviour:
     verticalKickback: 1
   controller: {fileID: 114980795937001328}
   movement: {fileID: 114865981622855486}
+  muzzleFlash: {fileID: 0}
   relativeLaunchOffset: 0.1
   attackLayerName: EnemyAttacks
 --- !u!114 &114707671247951324
@@ -285,7 +286,7 @@ MonoBehaviour:
   maxFallSpeed: 8
   friction: 0.08
   standingGroundedSpeedThreshold: 0.0001
-  jumpInitialVelocity: 10
+  jumpInitialVelocity: 16
   flipThreshold: 0.4
   controller: {fileID: 114980795937001328}
 --- !u!114 &114980795937001328

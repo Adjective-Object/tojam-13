@@ -11,31 +11,58 @@ public class EnemyController : AbstractController
     float lastJump = 0;
     float lastTargetUpdate = 0;
     Vector2 target;
+    float jumpingTime;
+
+    bool random;
     // Use this for initialization
     void Start()
     {
         Player = GameObject.Find("player");
         shouldShoot = false;
         if (shoot == null) shoot = GetComponent<Shoot>();
+
+        jumpingTime = Random.Range(8, 12);
     }
 
     public override Vector2 GetIntendedVelocity()
     {
-        if (Time.realtimeSinceStartup - lastTargetUpdate > 2.5 ||
-            Vector2.Distance(target, new Vector2(transform.position.x, transform.position.z)) < 3 ||
-            Vector2.Distance(target, new Vector2(Player.transform.position.x, Player.transform.position.z)) > 10)
-        {
-            lastTargetUpdate = Time.realtimeSinceStartup;
 
-            Vector2 target = new Vector2();
-            Vector2 player = new Vector2(Player.transform.position.x, Player.transform.position.z);
-            do
-            {
-                target.x = UnityEngine.Random.Range(-10.0f, 10.0f);
-                target.y = UnityEngine.Random.Range(-10.0f, 10.0f);
-            } while (Vector2.Distance(target, Vector2.zero) < 5 || Vector2.Distance(target, Vector2.zero) > 10);
-            this.target = player + target;
+
+ 
+        if (random && Time.realtimeSinceStartup - lastTargetUpdate > 10)
+        {
+            random = false;
         }
+
+        if (random == false)
+        {
+            if (Time.realtimeSinceStartup - lastTargetUpdate > 2.5 ||
+                Vector2.Distance(target, new Vector2(transform.position.x, transform.position.z)) < 3 ||
+                Vector2.Distance(target, new Vector2(Player.transform.position.x, Player.transform.position.z)) > 10)
+            {
+                lastTargetUpdate = Time.realtimeSinceStartup;
+
+                random = Random.value > 0.97f;
+                if (random)
+                {
+                    target.x = UnityEngine.Random.Range(-50.0f, 50.0f);
+                    target.y = UnityEngine.Random.Range(-50.0f, 50.0f);
+                }
+                else
+                {
+
+                    Vector2 target = new Vector2();
+                    Vector2 player = new Vector2(Player.transform.position.x, Player.transform.position.z);
+                    do
+                    {
+                        target.x = UnityEngine.Random.Range(-10.0f, 10.0f);
+                        target.y = UnityEngine.Random.Range(-10.0f, 10.0f);
+                    } while (Vector2.Distance(target, Vector2.zero) < 5 || Vector2.Distance(target, Vector2.zero) > 10);
+                    this.target = player + target;
+                }
+            }
+        }
+        
 
         Vector2 playerPos = target;
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.z);
@@ -74,7 +101,7 @@ public class EnemyController : AbstractController
 
     public override bool ShouldJump()
     {
-        if (Time.realtimeSinceStartup - lastJump > 8 || 
+        if (Time.realtimeSinceStartup - lastJump > jumpingTime || 
             (Time.realtimeSinceStartup - lastJump > 2.0f && Player.transform.position.y - transform.position.y > 2))
         {
             lastJump = Time.realtimeSinceStartup;
