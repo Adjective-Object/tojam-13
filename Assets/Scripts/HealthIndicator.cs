@@ -27,12 +27,11 @@ public class HealthIndicator : MonoBehaviour {
 	void Update () {
 		int numActiveIndicators = (int)(health.HP / healthPerIndicator);
 		for (int i=0; i<mHealthPrefabs.Count; i++) {
-			bool isHealthIndicatorActive = numActiveIndicators >= i;
-			mHealthPrefabs[i].SetActive(isHealthIndicatorActive);
-			if (isHealthIndicatorActive) {
-				int healthThisIndicator = (i == numActiveIndicators)
-					? health.HP - (healthPerIndicator * numActiveIndicators)
-					: healthPerIndicator;
+			int healthThisIndicator = (i == numActiveIndicators)
+				? health.HP - (healthPerIndicator * numActiveIndicators)
+				: (i > numActiveIndicators) ? 0 : healthPerIndicator;
+			mHealthPrefabs[i].SetActive(healthThisIndicator > 0);
+			if (healthThisIndicator > 0) {
 				mHealthPrefabs[i].GetComponent<Heart>().SetIndicatorLevel(healthThisIndicator);
 			}
 		}
