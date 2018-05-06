@@ -14,6 +14,8 @@ public class Shoot : MonoBehaviour {
         public float travelTime;
         public float horizontalKickback;
         public float verticalKickback;
+        public float spread;
+        public int numBullets;
 
         public Gun(
             float shootTime,
@@ -24,7 +26,9 @@ public class Shoot : MonoBehaviour {
             GameObject bulletPrefab,
             float travelTime,
             float horizontalKickback,
-            float verticalKickback
+            float verticalKickback,
+            float spread,
+            int numBullets
         ) {
             this.shootTime = shootTime;
             this.reloadTime = reloadTime;
@@ -35,6 +39,8 @@ public class Shoot : MonoBehaviour {
             this.travelTime = travelTime;
             this.horizontalKickback = horizontalKickback;
             this.verticalKickback = verticalKickback;
+            this.spread = spread;
+            this.numBullets = numBullets;
         }
     }
 
@@ -47,7 +53,9 @@ public class Shoot : MonoBehaviour {
         null, // bulletPrefab
         1.5f, // travelTime
         1, // horizontalKickback
-        1 // verticalKickback
+        1, // verticalKickback
+        0, // spread
+        1 // numBullets
     );
     public AbstractController controller;
     public Movement movement;
@@ -93,14 +101,16 @@ public class Shoot : MonoBehaviour {
     void FireGun(float currentTime) {
         mLastShootTime = currentTime;
         gun.currentAmmo--;
-        GameObject bullet = GameObject.Instantiate(gun.bulletPrefab);
-        bullet.layer = LayerMask.NameToLayer(attackLayerName);
-
-		Quaternion localRotation = Quaternion.AngleAxis(controller.GetPointingDegrees(), Vector3.down);
+        float bulletRotation = controller.GetPointingDegrees() + Random.Range(-gun.spread, gun.spread);
+		Quaternion localRotation = Quaternion.AngleAxis(bulletRotation, Vector3.down);
 		Vector3 relativeLaunchPosition = localRotation * new Vector3(relativeLaunchOffset, 0, 0);
         Vector3 relativeLaunchDirection = relativeLaunchPosition / relativeLaunchPosition.magnitude;
+
+
+        GameObject bullet = GameObject.Instantiate(gun.bulletPrefab);
+        bullet.layer = LayerMask.NameToLayer(attackLayerName);
         bullet.transform.position = this.transform.position + relativeLaunchPosition;
-        bullet.transform.rotation = Quaternion.AngleAxis(controller.GetPointingDegrees() - 90, Vector3.down);
+        bullet.transform.rotation = Quaternion.AngleAxis(bulletRotation - 90, Vector3.down);
         Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
         rigidbody.velocity =  relativeLaunchDirection * gun.travelSpeed;
         DeleteAfter deleteAfter = bullet.GetComponent<DeleteAfter>();
