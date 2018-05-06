@@ -10,18 +10,45 @@ public class PlayerController : AbstractController {
     public string shootButton = "Fire";
     public string reloadButton = "Reload";
 	public float pointingAxisThreshold = 0.01f;
+	public Camera mousePointingRaycastOrigin;
+	public bool useMousePointing = true;
 
 	public override Vector2 GetIntendedVelocity() {
  		return new Vector2(Input.GetAxis(xAxisMovement), Input.GetAxis(yAxisMovement));
 	}
 
 	protected override bool ShouldSetPointing() {
-		return Mathf.Abs(Input.GetAxis(xAxisPointing)) > pointingAxisThreshold ||
-			Mathf.Abs(Input.GetAxis(yAxisPointing)) > pointingAxisThreshold;
+		if (useMousePointing) {
+			RaycastHit hit;
+			Ray ray = mousePointingRaycastOrigin.ScreenPointToRay(Input.mousePosition);
+			bool hitSomething = Physics.Raycast(ray, out hit);
+			Debug.Log("cast over ray " + ray + "hit?" + hitSomething);
+			return hitSomething;
+		} else {
+			return Mathf.Abs(Input.GetAxis(xAxisPointing)) > pointingAxisThreshold ||
+				Mathf.Abs(Input.GetAxis(yAxisPointing)) > pointingAxisThreshold;
+		}
 	}
 
 	protected override float GetIntendedPointingDegrees() {
- 		return (Mathf.Atan2(Input.GetAxis(yAxisPointing), Input.GetAxis(xAxisPointing))) * Mathf.Rad2Deg;
+		if (useMousePointing) {
+			return GetIntendedPointingDegreesFromMouse();
+		}
+		return (Mathf.Atan2(Input.GetAxis(yAxisPointing), Input.GetAxis(xAxisPointing))) * Mathf.Rad2Deg;
+	}
+
+	private float GetIntendedPointingDegreesFromMouse() {
+		// Raycast into scene from camera
+		RaycastHit hit;
+        Ray ray = mousePointingRaycastOrigin.ScreenPointToRay(Input.mousePosition);
+		if (!Physics.Raycast(ray, out hit)) {
+			Debug.LogWarning("failed to raycast");
+			return 0f;
+		}
+
+		Vector3 objectHitPosition = hit.point;
+		Vector3 positionDifference = objectHitPosition - this.transform.position;
+		return Mathf.Atan2(positionDifference.z, positionDifference.x) * Mathf.Rad2Deg; 
 	}
 
     public override bool ShouldJump() {

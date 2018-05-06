@@ -251,6 +251,8 @@ MonoBehaviour:
   shootButton: Fire
   reloadButton: Reload
   pointingAxisThreshold: 0.01
+  mousePointingRaycastOrigin: {fileID: 0}
+  useMousePointing: 1
 --- !u!136 &136780798228719714
 CapsuleCollider:
   m_ObjectHideFlags: 1
